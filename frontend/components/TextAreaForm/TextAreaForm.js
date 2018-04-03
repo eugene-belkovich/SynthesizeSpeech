@@ -2,7 +2,7 @@ import React from 'react'
 import Formsy from 'formsy-react'
 import Textarea from '../Textarea'
 import Select from '../Select'
-
+const download = require("downloadjs")
 
 class TextAreaForm extends React.Component {
   constructor(props) {
@@ -27,27 +27,30 @@ class TextAreaForm extends React.Component {
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({ canSubmit: false })
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({ canSubmit: true })
   }
 
   submit(model) {
-    console.log("model", model);
     fetch('http://127.0.0.1:8081/', {
-      body: JSON.stringify(model), // must match 'Content-Type' header
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, same-origin, *omit
+      body: JSON.stringify(model),
+      cache: 'no-cache',
+      credentials: 'same-origin',
       headers: {
         'content-type': 'application/json'
       },
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, cors, *same-origin
-      redirect: 'follow', // *manual, follow, error
-      referrer: 'no-referrer', // *client, no-referrer
-    });
+      method: 'POST',
+      mode: 'cors',
+      redirect: 'follow',
+      referrer: 'no-referrer',
+    }).then((response) => {
+      return response.blob()
+    }).then((myBlob) => {
+      download(myBlob);
+    })
   }
 
   render() {
