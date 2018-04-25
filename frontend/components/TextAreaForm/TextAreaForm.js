@@ -13,8 +13,8 @@ class TextAreaForm extends React.Component {
     canSubmit: false,
     formats: [
       { label: 'mp3', value: 'mp3' },
-      { label: 'ogg_vorbis', value: 'ogg_vorbis' },
-      { label: 'pcm', value: 'pcm' },
+      { label: 'ogg', value: 'ogg_vorbis' },
+      // { label: 'pcm', value: 'pcm' },
       { label: 'json', value: 'json' }
     ],
     languages: [
@@ -22,7 +22,9 @@ class TextAreaForm extends React.Component {
       { label: 'Russian', value: 'ru-RU' },
     ],
     rates: [
+      { label: '8000Hz', value: '8000' },
       { label: '16000Hz', value: '16000' },
+      { label: '22050Hz', value: '22050' },
     ]
   }
 
