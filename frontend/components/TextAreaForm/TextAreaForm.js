@@ -2,6 +2,7 @@ import React from 'react'
 import Formsy from 'formsy-react'
 import Textarea from '../Textarea'
 import Select from '../Select'
+import RadioGroup from '../RadioGroup'
 const download = require("downloadjs")
 
 class TextAreaForm extends React.Component {
@@ -13,20 +14,19 @@ class TextAreaForm extends React.Component {
     canSubmit: false,
     formats: [
       { label: 'mp3', value: 'mp3' },
-      { label: 'ogg', value: 'ogg_vorbis' },
+      // { label: 'ogg', value: 'ogg_vorbis' }, // direct in speackers?
       // { label: 'pcm', value: 'pcm' },
-      { label: 'json', value: 'json' }
+      // { label: 'json', value: 'json' }
     ],
     languages: [
-      { label: 'English', value: 'en-US' },
+      { label: 'English (US)', value: 'en-US' },
+      { label: 'English (British) ', value: 'en-GB' },
+      { label: 'English (Indian) ', value: 'en-IN' },
+      { label: 'English (Australian)', value: 'en-AU' },
+      { label: 'English (Welsh)', value: 'en-GB-WLS' },
       { label: 'Russian', value: 'ru-RU' },
       { label: 'Danish', value: 'da-DK' },
       { label: 'Dutch', value: 'nl-NL' },
-      { label: 'English (Australian)', value: 'en-AU' },
-      { label: 'English (British) ', value: 'en-GB' },
-      { label: 'English (Indian) ', value: 'en-IN' },
-      { label: 'English (US)', value: 'en-US' },
-      { label: 'English (Welsh)', value: 'en-GB-WLS' },
       { label: 'Welsh', value: 'cy-GB' },
       { label: 'French', value: 'fr-FR' },
       { label: 'French (Canadian)', value: 'fr-CA' },
@@ -142,7 +142,7 @@ class TextAreaForm extends React.Component {
       <Formsy onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
         <Select name="format" options={this.state.formats} required/>
         <Select name="language" options={this.state.languages} required/>
-        <Select name="genders" options={this.state.genders} required/>
+        <RadioGroup name="genders" options={this.state.genders} required/>
         <Select name="voices" options={this.state.voices} required/>
         <Select name="rate" options={this.state.rates} required/>
         <Textarea
