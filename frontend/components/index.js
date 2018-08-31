@@ -1,11 +1,5 @@
-import TextAreaForm from './TextAreaForm'
-import MyInput from './Textarea'
-import Select from './Select'
-import RadioGroup from './RadioGroup'
+import SynthForm from './form/SynthForm'
 
 export {
-  TextAreaForm,
-  RadioGroup,
-  MyInput,
-  Select
+  SynthForm,
 }

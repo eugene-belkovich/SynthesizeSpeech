@@ -1,13 +1,12 @@
-import React from 'react';
-import { TextAreaForm } from './components'
+import React from 'react'
+import { SynthForm } from './components'
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <TextAreaForm/>
-      </div>
-    );
+      <SynthForm/>
+    )
   }
 }
-export default App;
+
+export default App

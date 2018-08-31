@@ -4,6 +4,10 @@ const fs = require('fs')
 const util = require('util')
 const router = express.Router()
 
+const Polly = new AWS.Polly({
+    region: 'us-west-2'
+})
+
 router.get('/', function (req, res) {
   console.log('get controller')
   res.json('get controller');
@@ -16,9 +20,6 @@ router.post('/', function (req, res) {
   const language = req.body.language
   const rate = req.body.rate
 
-  const Polly = new AWS.Polly({
-    region: 'us-west-2'
-  })
   let params = {
     'Text': text,
     'OutputFormat': 'mp3',
@@ -28,7 +29,7 @@ router.post('/', function (req, res) {
 
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
-      console.log(err.code)
+      console.log("Error " + err + err.code)
     } else if (data) {
       if (data.AudioStream instanceof Buffer) {
         res.set('content-type', 'audio/mp3');
