@@ -12,23 +12,36 @@ const DEFAULT_FORMAT = formats[0].value
 
 
 class SynthForm extends React.PureComponent {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      language: DEFAULT_LANGUAGE,
+    }
+  }
+
   getVoiceOptions() {
-    return voices.filter((option) => option.language === DEFAULT_LANGUAGE)
+    console.log("this.state.language", this.state.language);
+    return voices.filter((option) => option.language === this.state.language)
   }
 
 
   render() {
     const { values, isSubmitting, handleChange, handleBlur, setFieldValue } = this.props
-
+    console.log('values', values);
     return (
       <Form>
         <SelectButton
           name="language"
-          label="language"
+          label="Language"
           options={languages}
           values={values}
           handleBlur={handleBlur}
           setFieldValue={setFieldValue}
+          onChange={(value) => {
+            console.log('value', value);
+            this.setState({language: value})
+          }}
         />
         <RadioButton
           name="voice"
@@ -40,7 +53,7 @@ class SynthForm extends React.PureComponent {
         />
         <RadioButton
           name="rate"
-          label="Rates"
+          label="Rate"
           options={rates}
           values={values}
           handleBlur={handleBlur}
@@ -48,7 +61,7 @@ class SynthForm extends React.PureComponent {
         />
         <RadioButton
           name="format"
-          label="Formats"
+          label="Format"
           options={formats}
           values={values}
           handleBlur={handleBlur}

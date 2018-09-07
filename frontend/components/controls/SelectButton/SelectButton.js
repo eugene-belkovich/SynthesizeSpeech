@@ -15,20 +15,14 @@ class StyledSelectButton extends React.Component {
     const { options } = this.props
     return options.map((option) => {
       return (
-        <Label key={option.value}>
-          <StyledOption value={option.value}>{option.label}</StyledOption>
-        </Label>
+        <StyledOption key={option.value} value={option.value}>{option.label}</StyledOption>
       )
     })
   }
 
-  test() {
-    const { options } = this.props
-    const divs = options.map((option) => <option key={option.value}>{option.label}</option>)
-    return divs
-  }
   onSelected(e) {
     this.props.setFieldValue(this.props.name, e.target.value)
+    this.props.onChange(e.target.value)
   }
 
   render() {
@@ -41,7 +35,7 @@ class StyledSelectButton extends React.Component {
           name={this.props.name}
           onChange={this.onSelected}
         >
-          {this.test()}
+          {this.getOptions()}
         </StyledInput>
       </div>
     )
