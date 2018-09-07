@@ -1,7 +1,7 @@
 import React from 'react'
 
 const download = require('downloadjs')
-import { SubmitButton, TextArea, RadioButton } from '../../controls'
+import { SubmitButton, TextArea, RadioButton, SelectButton } from '../../controls'
 import { formats, languages, voices, rates } from '../../../config'
 import { withFormik, Form } from 'formik'
 
@@ -11,7 +11,7 @@ const DEFAULT_RATE = rates[1].value
 const DEFAULT_FORMAT = formats[0].value
 
 
-class SynthForm extends React.Component {
+class SynthForm extends React.PureComponent {
   getVoiceOptions() {
     return voices.filter((option) => option.language === DEFAULT_LANGUAGE)
   }
@@ -22,6 +22,14 @@ class SynthForm extends React.Component {
 
     return (
       <Form>
+        <SelectButton
+          name="language"
+          label="language"
+          options={languages}
+          values={values}
+          handleBlur={handleBlur}
+          setFieldValue={setFieldValue}
+        />
         <RadioButton
           name="voice"
           label="Voice"
