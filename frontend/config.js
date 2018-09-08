@@ -1,6 +1,6 @@
 export const formats = [
   { label: 'mp3', value: 'mp3' },
-  // { label: 'ogg', value: 'ogg_vorbis' }, // direct in speackers?
+  { label: 'ogg', value: 'ogg_vorbis' },
   // { label: 'pcm', value: 'pcm' },
   // { label: 'json', value: 'json' }
 ];
@@ -23,6 +23,7 @@ export const languages = [
   { label: 'French', value: 'fr-FR' },
   { label: 'French (Canadian)', value: 'fr-CA' },
   { label: 'German', value: 'de-DE' },
+  { label: 'Hindi', value: 'hi-IN' },
   { label: 'Icelandic', value: 'is-IS' },
   { label: 'Italian', value: 'it-IT' },
   { label: 'Japanese', value: 'ja-JP' },
@@ -49,6 +50,7 @@ export const voices = [
   { label: 'Brian', value: 'Brian', gender: 'male', language: 'en-GB' },
   { label: 'Emma', value: 'Emma', gender: 'female', language: 'en-GB' },
   { label: 'Aditi', value: 'Aditi', gender: 'female', language: 'en-IN' },
+  { label: 'Aditi', value: 'Aditi', gender: 'female', language: 'hi-IN' },
   { label: 'Raveena', value: 'Raveena', gender: 'female', language: 'en-IN' },
   { label: 'Ivy', value: 'Ivy', gender: 'female', language: 'en-US' },
   { label: 'Joanna', value: 'Joanna', gender: 'female', language: 'en-US' },

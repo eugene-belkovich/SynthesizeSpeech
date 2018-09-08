@@ -18,13 +18,16 @@ router.post('/', function (req, res) {
   const text = req.body.text
   const format = req.body.format
   const language = req.body.language
+  const voice = req.body.voice
   const rate = req.body.rate
 
   let params = {
     'Text': text,
-    'OutputFormat': 'mp3',
-    'VoiceId': 'Kimberly',
+    'OutputFormat': format, //todo json ogg_vorbis pcm
+    'LanguageCode': language,
+    'VoiceId': voice,
     'SampleRate': rate,
+    'TextType': 'text', // todo add ssml
   }
 
   Polly.synthesizeSpeech(params, (err, data) => {
