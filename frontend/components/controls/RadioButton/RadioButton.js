@@ -17,7 +17,7 @@ class StyledRadioButton extends React.Component {
           <StyledInput
 
             id={option.value}
-            value={this.props.values[this.props.name]}
+            value={option.value}
             name={this.props.name}
 
             checked={this.props.values[this.props.name] === option.value}
