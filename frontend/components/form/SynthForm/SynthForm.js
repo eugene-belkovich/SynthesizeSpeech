@@ -6,25 +6,15 @@ import { formats, languages, voices, rates } from '../../../config'
 import { withFormik, Form } from 'formik'
 
 
-const DEFAULT_LANGUAGE = languages[0].value
+function getVoicesByLanguage(language) {
+  return voices.filter((option) => option.language === language)
+}
+
+let DEFAULT_LANGUAGE = languages[0].value
 const DEFAULT_RATE = rates[1].value
 const DEFAULT_FORMAT = formats[0].value
 
-
 class SynthForm extends React.PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      language: DEFAULT_LANGUAGE,
-    }
-  }
-
-  getVoiceOptions() {
-    return voices.filter((option) => option.language === this.state.language)
-  }
-
-
   render() {
     const { values, isSubmitting, handleChange, handleBlur, setFieldValue } = this.props
     return (
@@ -37,13 +27,14 @@ class SynthForm extends React.PureComponent {
           handleBlur={handleBlur}
           setFieldValue={setFieldValue}
           onChange={(value) => {
-            this.setState({ language: value })
+            setFieldValue('voice', getVoicesByLanguage(value)[0].value)
+            DEFAULT_LANGUAGE = value;
           }}
         />
         <RadioButton
           name="voice"
           label="Voice"
-          options={this.getVoiceOptions()}
+          options={getVoicesByLanguage(DEFAULT_LANGUAGE)}
           values={values}
           handleBlur={handleBlur}
           setFieldValue={setFieldValue}
@@ -82,6 +73,7 @@ class SynthForm extends React.PureComponent {
 export default withFormik({
   mapPropsToValues: () => ({
     text: '',
+    voice: getVoicesByLanguage(DEFAULT_LANGUAGE)[0].value,
     rate: DEFAULT_RATE,
     format: DEFAULT_FORMAT,
   }),
