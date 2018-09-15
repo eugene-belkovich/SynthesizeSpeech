@@ -1,7 +1,7 @@
 import React from 'react'
 
 const download = require('downloadjs')
-import { SubmitButton, TextArea, RadioButton, SelectButton } from '../../controls'
+import { SubmitButton, TextArea, RadioButton, SelectButton, HiddenInput } from '../../controls'
 import { formats, languages, voices, rates } from '../../../config'
 import { withFormik, Form } from 'formik'
 
@@ -16,7 +16,7 @@ const DEFAULT_FORMAT = formats[0].value
 
 class SynthForm extends React.PureComponent {
   render() {
-    const { values, isSubmitting, handleChange, handleBlur, setFieldValue } = this.props
+    const { values, handleChange, handleBlur, setFieldValue } = this.props
     return (
       <Form>
         <SelectButton
@@ -57,14 +57,27 @@ class SynthForm extends React.PureComponent {
           setFieldValue={setFieldValue}
         />
         <TextArea
-          id="text"
+          name="text"
           type="text"
           label="Plain text"
           placeholder="Enter your email"
           value={values.text}
           onChange={handleChange}
         />
-        <SubmitButton disabled={isSubmitting}/>
+        <HiddenInput id="type" name="type" type="hidden"/>
+        <SubmitButton
+          label="Listen to speech"
+          onClick={() => {
+            setFieldValue('type', 'play');
+          }}
+        />
+        <SubmitButton
+          type="submit"
+          label="Download"
+          onClick={() => {
+            setFieldValue('type', 'download');
+          }}
+        />
       </Form>
     )
   }
@@ -73,11 +86,12 @@ class SynthForm extends React.PureComponent {
 export default withFormik({
   mapPropsToValues: () => ({
     text: '',
+    type: '',
     voice: getVoicesByLanguage(DEFAULT_LANGUAGE)[0].value,
     rate: DEFAULT_RATE,
     format: DEFAULT_FORMAT,
   }),
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: (values) => {
     console.log(JSON.stringify(values, null, 2))
 
     fetch('http://127.0.0.1:8081/', {
@@ -95,11 +109,14 @@ export default withFormik({
       return response.blob()
     }).then((blob) => {
       //todo if for download or speakers
-      var url = URL.createObjectURL(blob);
-      var audioElement = document.getElementById('audio')
-      audioElement.src = url;
-      audioElement.play();
-      // download(blob) //todo download like mp3
+      if(values.type === 'play') {
+        var url = URL.createObjectURL(blob);
+        var audioElement = document.getElementById('audio')
+        audioElement.src = url;
+        audioElement.play();
+      } else {
+        download(blob) //todo download like mp3
+      }
     })
   },
   displayName: 'SynthForm',
